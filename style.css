@@ -1,0 +1,728 @@
+/* ==========================================================================
+   CSS Variables & Design Tokens
+   ========================================================================== */
+:root {
+  /* Fonts */
+  --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Shared dimensions */
+  --calc-width: 375px;
+  --calc-radius: 32px;
+  --btn-radius: 20px;
+  --btn-size: 68px;
+}
+
+/* ---------------- Dark Theme (Default) ---------------- */
+body[data-theme="dark"] {
+  --bg-gradient: radial-gradient(circle at 20% 20%, #1e1e38 0%, #0d0e15 100%);
+  --ambient-glow-1: rgba(99, 102, 241, 0.15);
+  --ambient-glow-2: rgba(236, 72, 153, 0.12);
+
+  --card-bg: rgba(24, 25, 38, 0.85);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 1px rgba(255, 255, 255, 0.2);
+
+  --display-bg: rgba(15, 16, 26, 0.6);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
+
+  --btn-num-bg: rgba(255, 255, 255, 0.05);
+  --btn-num-hover: rgba(255, 255, 255, 0.1);
+  --btn-num-border: rgba(255, 255, 255, 0.04);
+  --btn-num-text: #f1f5f9;
+
+  --btn-act-bg: rgba(244, 63, 94, 0.12);
+  --btn-act-hover: rgba(244, 63, 94, 0.22);
+  --btn-act-text: #fb7185;
+  --btn-act-border: rgba(244, 63, 94, 0.2);
+
+  --btn-op-bg: rgba(99, 102, 241, 0.15);
+  --btn-op-hover: rgba(99, 102, 241, 0.25);
+  --btn-op-text: #a5b4fc;
+  --btn-op-active-bg: #6366f1;
+  --btn-op-active-text: #ffffff;
+  --btn-op-border: rgba(99, 102, 241, 0.25);
+
+  --btn-eq-bg: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+  --btn-eq-text: #ffffff;
+  --btn-eq-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+
+  --history-bg: rgba(18, 19, 31, 0.96);
+  --history-item-bg: rgba(255, 255, 255, 0.03);
+  --history-item-hover: rgba(255, 255, 255, 0.08);
+
+  --kbd-bg: rgba(255, 255, 255, 0.08);
+  --kbd-text: #94a3b8;
+}
+
+/* ---------------- Light Theme ---------------- */
+body[data-theme="light"] {
+  --bg-gradient: radial-gradient(circle at 10% 10%, #f1f5f9 0%, #e2e8f0 100%);
+  --ambient-glow-1: rgba(99, 102, 241, 0.08);
+  --ambient-glow-2: rgba(236, 72, 153, 0.06);
+
+  --card-bg: rgba(255, 255, 255, 0.88);
+  --card-border: rgba(255, 255, 255, 0.8);
+  --card-shadow: 0 20px 50px rgba(100, 116, 139, 0.18), 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  --display-bg: rgba(248, 250, 252, 0.7);
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-subtle: #94a3b8;
+
+  --btn-num-bg: #ffffff;
+  --btn-num-hover: #f1f5f9;
+  --btn-num-border: rgba(226, 232, 240, 0.8);
+  --btn-num-text: #1e293b;
+
+  --btn-act-bg: rgba(239, 68, 68, 0.1);
+  --btn-act-hover: rgba(239, 68, 68, 0.18);
+  --btn-act-text: #dc2626;
+  --btn-act-border: rgba(239, 68, 68, 0.15);
+
+  --btn-op-bg: rgba(79, 70, 229, 0.08);
+  --btn-op-hover: rgba(79, 70, 229, 0.16);
+  --btn-op-text: #4f46e5;
+  --btn-op-active-bg: #4f46e5;
+  --btn-op-active-text: #ffffff;
+  --btn-op-border: rgba(79, 70, 229, 0.15);
+
+  --btn-eq-bg: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  --btn-eq-text: #ffffff;
+  --btn-eq-shadow: 0 8px 20px rgba(79, 70, 229, 0.35);
+
+  --history-bg: rgba(255, 255, 255, 0.98);
+  --history-item-bg: rgba(241, 245, 249, 0.7);
+  --history-item-hover: rgba(226, 232, 240, 0.9);
+
+  --kbd-bg: rgba(0, 0, 0, 0.05);
+  --kbd-text: #64748b;
+}
+
+/* ==========================================================================
+   Global Reset & Base Layout
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  min-height: 100vh;
+  font-family: var(--font-main);
+  background: var(--bg-gradient);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  transition: background var(--transition-normal), color var(--transition-normal);
+}
+
+body {
+  position: relative;
+  padding: 24px 16px;
+}
+
+/* Ambient glow blobs */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+  top: 15%;
+  left: 20%;
+  width: 320px;
+  height: 320px;
+  background: var(--ambient-glow-1);
+}
+
+body::after {
+  bottom: 15%;
+  right: 20%;
+  width: 340px;
+  height: 340px;
+  background: var(--ambient-glow-2);
+}
+
+/* ==========================================================================
+   Calculator Container & Card
+   ========================================================================== */
+.calculator-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--calc-width);
+  margin: auto;
+}
+
+.calculator-card {
+  position: relative;
+  width: 100%;
+  background: var(--card-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--calc-radius);
+  box-shadow: var(--card-shadow);
+  padding: 24px 20px 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: background var(--transition-normal), border var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+/* ==========================================================================
+   Header Bar
+   ========================================================================== */
+.calc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #d946ef);
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.8);
+}
+
+.brand-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.icon-btn:hover {
+  background: var(--btn-num-hover);
+  color: var(--text-main);
+  transform: translateY(-1px);
+}
+
+.icon-btn:active {
+  transform: scale(0.92);
+}
+
+.icon-btn.active {
+  color: #6366f1;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.icon.hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Display Screen
+   ========================================================================== */
+.calc-display {
+  background: var(--display-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 20px 18px 16px;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  overflow: hidden;
+  position: relative;
+  transition: background var(--transition-normal), border var(--transition-normal);
+}
+
+.display-previous {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  min-height: 24px;
+  word-break: break-all;
+  text-align: right;
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+  transition: all var(--transition-fast);
+}
+
+.display-current-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.display-current {
+  font-family: var(--font-mono);
+  font-size: 2.75rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--text-main);
+  text-align: right;
+  letter-spacing: -0.02em;
+  transition: font-size var(--transition-fast), color var(--transition-fast);
+}
+
+.display-current.font-md {
+  font-size: 2.1rem;
+}
+
+.display-current.font-sm {
+  font-size: 1.6rem;
+}
+
+.display-current.font-xs {
+  font-size: 1.25rem;
+}
+
+/* ==========================================================================
+   Keypad Grid
+   ========================================================================== */
+.calc-keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.btn {
+  height: var(--btn-size);
+  border-radius: var(--btn-radius);
+  border: 1px solid transparent;
+  font-family: var(--font-main);
+  font-size: 1.4rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active,
+.btn.btn-active-key {
+  transform: scale(0.93);
+}
+
+.btn-icon {
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+}
+
+/* Number buttons */
+.btn-number {
+  background: var(--btn-num-bg);
+  color: var(--btn-num-text);
+  border-color: var(--btn-num-border);
+}
+
+.btn-number:hover {
+  background: var(--btn-num-hover);
+}
+
+/* Action buttons (AC, DEL, %) */
+.btn-action {
+  background: var(--btn-act-bg);
+  color: var(--btn-act-text);
+  border-color: var(--btn-act-border);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.btn-action:hover {
+  background: var(--btn-act-hover);
+}
+
+/* Operator buttons (+, -, ×, ÷) */
+.btn-operator {
+  background: var(--btn-op-bg);
+  color: var(--btn-op-text);
+  border-color: var(--btn-op-border);
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.btn-operator:hover {
+  background: var(--btn-op-hover);
+}
+
+.btn-operator.active-operator {
+  background: var(--btn-op-active-bg);
+  color: var(--btn-op-active-text);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+}
+
+/* Equals button */
+.btn-equals {
+  background: var(--btn-eq-bg);
+  color: var(--btn-eq-text);
+  box-shadow: var(--btn-eq-shadow);
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.btn-equals:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 10px 28px rgba(99, 102, 241, 0.55);
+}
+
+/* Button ripple wave */
+.btn .ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-anim 0.45s linear;
+  background-color: rgba(255, 255, 255, 0.28);
+  pointer-events: none;
+}
+
+@keyframes ripple-anim {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   Scientific Functions Keypad & Mode Badge & Copy Toast
+   ========================================================================== */
+.mode-badge {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 3px 7px;
+  border-radius: 8px;
+  background: rgba(99, 102, 241, 0.15);
+  color: #818cf8;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  letter-spacing: 0.05em;
+  transition: all var(--transition-fast);
+}
+
+.icon-btn.active .mode-badge {
+  background: #6366f1;
+  color: #ffffff;
+  border-color: #6366f1;
+}
+
+.calc-display {
+  cursor: pointer;
+}
+
+.copy-toast {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background: rgba(16, 185, 129, 0.95);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+  z-index: 5;
+}
+
+.copy-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.calc-scientific {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease, margin 0.25s ease;
+  margin-top: -8px;
+}
+
+.calculator-card.scientific-active .calc-scientific {
+  max-height: 240px;
+  opacity: 1;
+  margin-top: 0;
+}
+
+.btn-sci {
+  height: 46px;
+  font-size: 1.05rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  border-radius: 14px;
+  background: rgba(168, 85, 247, 0.1);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+body[data-theme="light"] .btn-sci {
+  background: rgba(147, 51, 234, 0.08);
+  color: #7e22ce;
+  border-color: rgba(147, 51, 234, 0.15);
+}
+
+.btn-sci:hover {
+  background: rgba(168, 85, 247, 0.22);
+}
+
+body[data-theme="light"] .btn-sci:hover {
+  background: rgba(147, 51, 234, 0.16);
+}
+
+/* ==========================================================================
+   History Slide-Over Drawer
+   ========================================================================== */
+.history-panel {
+  position: absolute;
+  inset: 0;
+  background: var(--history-bg);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border-radius: var(--calc-radius);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 20px;
+  transform: translateY(105%);
+  transition: transform var(--transition-bounce), opacity var(--transition-normal);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.history-panel.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.history-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.history-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  color: var(--btn-act-text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: opacity var(--transition-fast);
+}
+
+.text-btn:hover {
+  opacity: 0.8;
+}
+
+.icon-btn.small {
+  padding: 4px;
+}
+
+.icon-btn.small .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.history-list {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 14px;
+  padding-right: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 10px;
+}
+
+.history-item {
+  background: var(--history-item-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 10px 14px;
+  text-align: right;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.history-item:hover {
+  background: var(--history-item-hover);
+  transform: translateX(-2px);
+}
+
+.history-item-expr {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.history-item-res {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.history-empty {
+  margin: auto;
+  color: var(--text-subtle);
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.calc-footer {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--text-subtle);
+  padding-top: 4px;
+}
+
+kbd {
+  display: inline-block;
+  padding: 2px 5px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  background: var(--kbd-bg);
+  color: var(--kbd-text);
+  border-radius: 4px;
+  border: 1px solid var(--card-border);
+  margin: 0 1px;
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+@media (max-width: 420px) {
+  :root {
+    --calc-width: 100%;
+    --btn-size: 60px;
+    --btn-radius: 16px;
+    --calc-radius: 24px;
+  }
+
+  body {
+    padding: 12px 8px;
+  }
+
+  .calculator-card {
+    padding: 18px 14px 14px;
+    gap: 12px;
+  }
+
+  .calc-keypad {
+    gap: 8px;
+  }
+
+  .btn {
+    font-size: 1.25rem;
+  }
+
+  .display-current {
+    font-size: 2.3rem;
+  }
+}
+
+@media (max-height: 680px) {
+  :root {
+    --btn-size: 54px;
+  }
+
+  .calc-display {
+    min-height: 90px;
+    padding: 14px 14px 10px;
+  }
+
+  .display-current {
+    font-size: 2.2rem;
+  }
+
+  .calc-footer {
+    display: none;
+  }
+}
+
